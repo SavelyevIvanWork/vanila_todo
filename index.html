@@ -4,45 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="normalize.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Blinker:wght@200;400;600&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
     <section class="task">
         <h2 class="task__title">Список задач</h2>
-        <ul class="task-list">
-            <li class="task-list__item">
-                <div class="task-list__checkbox">
-                    <span class="task-list__span"></span>
-                </div>
-                <div class="task-list__label">
-                    <p class="task-list__text">task_1</p>
-                </div>
-            </li>
-            <li class="task-list__item">
-                <div class="task-list__checkbox">
-                    <span class="task-list__span"></span>
-                </div>
-                <div class="task-list__label">
-                    <p class="task-list__text">task_1</p>
-                </div>
-            </li>
-            <li class="task-list__item">
-                <div class="task-list__checkbox">
-                    <span class="task-list__span"></span>
-                </div>
-                <div class="task-list__label">
-                    <p class="task-list__text">task_1</p>
-                </div>
-            </li>
-        </ul>
-        <div class="task__wrapper">
-            <input class="task__input" type="text">
+        <div class="task__window-module">
+            <input class="task__input" type="text" placeholder="Добавить задачу...">
             <button class="task__button" type="button">Добавить</button>
         </div>
+        <ul class="task-list"></ul>
+        
     </section>
-    <template id="task__templeate">
-
+    <template id="task-list-templeate">
+        <li class="task-list__item">
+            <p class="task-list__text"></p>
+            <button class="task-list__button"></button>
+        </li>
     </template>
     <script src="index.js"></script>
 </body>
