@@ -13,16 +13,21 @@
     <section class="task">
         <h2 class="task__title">Список задач</h2>
         <div class="task__window-module">
-            <input class="task__input" type="text" placeholder="Добавить задачу..." autofocus>
-            <button class="task__button" type="button">Добавить</button>
-        </div>
-        <div class="task__color-picker color-picker" id="colorPickerJs">
-            <span class="color-picker__item color-picker__item--blue" style="background-color: blue;"></span>
-            <span class="color-picker__item color-picker__item--yellow" style="background-color: #ffa400;"></span>
-            <span class="color-picker__item color-picker__item--green" style="background-color: green;"></span>
-            <span class="color-picker__item color-picker__item--red" style="background-color: red;"></span>
-            <span class="color-picker__item color-picker__item--light-green" style="background-color: #00d669;"></span>
-            <span class="color-picker__item color-picker__item--purple" style="background-color: #530cff;"></span>
+            <div class="task__input-wrapper">
+                <input class="task__input" type="text" placeholder="Добавить задачу..." autofocus>
+                <div class="task__control">
+                    <div class="task__color-picker color-picker" id="colorPicker">
+                        <span class="color-picker__item color-picker__item--blue" style="background-color: blue;"></span>
+                        <span class="color-picker__item color-picker__item--yellow" style="background-color: #ffa400;"></span>
+                        <span class="color-picker__item color-picker__item--green" style="background-color: green;"></span>
+                        <span class="color-picker__item color-picker__item--red" style="background-color: red;"></span>
+                        <span class="color-picker__item color-picker__item--light-green"
+                            style="background-color: #00d669;"></span>
+                        <span class="color-picker__item color-picker__item--purple" style="background-color: #530cff;"></span>
+                    </div>
+                    <button class="task__button" type="button">Добавить</button>
+                </div>
+            </div>
         </div>
         <ul class="task-list"></ul>
         
