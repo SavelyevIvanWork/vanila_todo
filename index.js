@@ -15,26 +15,6 @@ function randColor() {
   return color;
 }
 
-// создание нового элемента
-let arr = []
-function createNewElement() {
-    let taskListElement = taskListTemplate.cloneNode(true);
-    let taskListText = taskListElement.querySelector('.task-list__text');
-        taskListText.textContent = taskInput.value;
-    let taskListItem = taskListElement.querySelector('.task-list__item');
-
-    let selectedColor = document.querySelector(".color-picker__item--active");
-    if (selectedColor) {
-      taskListItem.style.background = selectedColor.style.backgroundColor;
-    }
-    else {
-      taskListItem.style.background = randColor(taskListItem);
-    }
-    
-    arr.push(taskListItem)
-    return taskListElement
-}
-
 // отслеживаем клик колорпикеру и добавляем рамочки целевому элементу 
 colorPicker.addEventListener("click", function(evt) {
   colorPickerItem.forEach(item => {
@@ -47,68 +27,83 @@ colorPicker.addEventListener("click", function(evt) {
   })
 })
 
+let newElementArr = []
+
+if (localStorage.getItem('arr')) {
+  newElementArr = JSON.parse(localStorage.getItem('arr'));
+
+  newElementArr.forEach( function(item, i) {
+    createNewElement(item.todo, i, item.color)
+  });
+}
 
 // Добавляем новый элемент на страницу по клике на "Добавить"
 function buttonClickHandler () {
-  function isValidInput(value) {
-    var reg = /^\s*$/;
-    return reg.test(value) === true
+  const selectedColor = document.querySelector(".color-picker__item--active");
+  const newTodo = {
+    todo: taskInput.value,
+    color: selectedColor ? selectedColor.style.backgroundColor : randColor(),
+    checked: false,
+  };
+
+    function isValidInput(value) {
+      var reg = /^\s*$/;
+      return reg.test(value) === true
   }
      
   if (isValidInput(taskInput.value)) {
     alert('Заполните Поле!');
   } else {
-    taskList.appendChild(createNewElement()) 
+    createNewElement(taskInput.value, newElementArr.length, newTodo.color)
+    newElementArr.push(newTodo);
+    localStorage.setItem('arr', JSON.stringify(newElementArr)) 
     taskInput.value = "";
   } 
-
-  localStorage.setItem('arr', JSON.stringify(arr))
-  // console.log(Object.keys(arr))
+ 
 }
 
+// создание нового элемента
+function createNewElement(text, id, color) {
+  const taskListElement = taskListTemplate.cloneNode(true);
+  const taskListItem = taskListElement.querySelector('.task-list__item');
+  const taskListText = taskListElement.querySelector('.task-list__text');
+  const taskListBtn = taskListElement.querySelector('.task-list__button');
+  taskListText.textContent = text
+  taskListBtn.id = `btn_${id}`
+  taskListItem.id = `item_${id}`
+  taskListItem.style.background = color
 
-document.addEventListener("DOMContentLoaded", function () {
-    let data = JSON.parse(localStorage.getItem('stored'))
-    console.log(data)
-    // if (data) {
-    //   taskList.appendChild(data)
-    // }
-});
+
+  taskList.appendChild(taskListElement)
+}
 
 button.addEventListener('click', buttonClickHandler);
 
-function taskListElemntClickHandler(evt) {
-  let li = evt.target.closest('.task-list__item');
-  let button = evt.target.tagName === "BUTTON";
-  if (button) {
-      let close = evt.target.parentNode;
-      close.remove();
-      localStorage.removeItem('arr');
-      
-  } else if (li) {
-      li.classList.toggle('task-list__item--done');
-  } 
-}
-
-taskList.addEventListener('click', taskListElemntClickHandler);
-
-// clearBtn.addEventListener('click', function(){
-//   ul.innerHTML= "";
-//   localStorage.removeItem('todoList',ul.innerHTML );
-// });
-
-// // Изменяем добавленный элемент
 // function taskListElemntClickHandler(evt) {
-//     let li = evt.target.closest('.task-list__item');
-//     let button = evt.target.tagName === "BUTTON";
-//     if (button) {
-//         let close = evt.target.parentNode;
-//         close.remove();
-        
-//     } else if (li) {
-//         li.classList.toggle('task-list__item--done');
-//     } 
+//   let li = evt.target.closest('.task-list__item');
+//   let button = evt.target.tagName === "BUTTON";
+//   if (button) {
+//       let close = evt.target.parentNode;
+//       close.remove();
+//       localStorage.removeItem('arr');
+      
+//   } else if (li) {
+//       li.classList.toggle('task-list__item--done');
+//   } 
 // }
 
-
 // taskList.addEventListener('click', taskListElemntClickHandler);
+
+taskList.addEventListener('click', function(evt) {
+
+    let elementId = evt.target.id;
+  
+    newElementArr.forEach(function(item, i) {
+      if (elementId === `btn_${i}`) {
+        item.checked = true
+        taskList.querySelector(`[id='item_${i}']`).classList.add('visually-hidden')
+        localStorage.setItem('arr', JSON.stringify(newElementArr)) 
+       
+      }
+    });
+  });

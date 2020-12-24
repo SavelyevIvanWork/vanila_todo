@@ -9,7 +9,7 @@ body {
 }
 
 .visually-hidden {
-    display: block;
+    display: none !important;
 }
 
 .task {
