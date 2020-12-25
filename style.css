@@ -18,14 +18,13 @@ body {
     margin-top: 50px;
     padding: 20px;
     color: #252a2f;
-    background-color: #f6f8fa;
-    border: 1px solid #dedfe2;
+    /* background-color: #f6f8fa;
+    border: 1px solid #dedfe2; */
 }
 
 .task__title {
     margin-top: 0;
     font-size: 20px;
-    text-align: center;
 }
 
 .task__window-module {
@@ -38,9 +37,11 @@ body {
 
 .task__input {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     padding-right: 267px;
     border: 1px solid #dedfe2;
+    border-radius: 5px;
+    outline: none;
 }
 
 .task__control {
@@ -49,19 +50,20 @@ body {
     right: 0;
     display: flex;
     align-items: center;
-    height: 45px;
+    height: 100%;
     padding-right: 5px;
     padding-left: 10px;
     z-index: 10;
 }
 
 .task__button {
-    width: 120px;
-    padding: 5px;
+    padding: 6px 15px;
     color: #ffffff;
     background-color: #2aab6d;
     border: 1px solid #dedfe2;
+    border-radius: 5px;
     cursor: pointer;
+    outline: none;
 }
 
 .task__button:hover {
@@ -75,7 +77,7 @@ body {
 
 .color-picker {
     display: flex;
-    margin-right: 5px;
+    margin-right: 20px;
 }
 
 .color-picker__item {
@@ -95,27 +97,7 @@ body {
 }
 
 .color-picker__item--active {
-    border: 2px solid #d22856;
-}
-
-.color-picker__item--blue {
-    background: blue;
-}
-
-.color-picker__item--yellow {
-    background:#ffa400;
-}
-
-.color-picker__item--green {
-    background: green;
-}
-
-.color-picker__item--red {
-    background: red;
-} 
-
-.color-picker__item--light-green {
-    background: #00d669;
+    border: 2px solid #e4a214;
 }
 
 .task-list {
@@ -125,59 +107,51 @@ body {
 }
 
 .task-list__item {
-    position: relative;
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #dedfe2;
+    margin-bottom: 2px;
+}
+
+.task-list__item:last-child {
+    margin-bottom: 20px;
 }
 
 .task-list__checkbox {
     position: relative;
-    flex-shrink: 0;
-    width: 30px;
-    height: 30px;
-    background-color: #ffffff;
-    border: 2px solid #e5e5e5; 
+    width: 10%;
+    height: 52px;
+    margin-right: 2px;
+    border: 1px solid #dedfe2;
 }
 
-.task-list__checkbox:hover {
-    border: 2px solid #d22856;
-}
-
-.task-list__item--done {
-    background: #333333 !important;
-}
-
-.task-list__item--done .task-list__checkbox::after {
+.task-list__checkbox::before {
     content: '';
     position: absolute;
-    top: 3px;
-    left: 10px;
-    border-color: #d22856;
-    border-style: solid;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-    height: 15px;
-    width: 7px;
+    top: 17px;
+    left: 20px;
+    width: 16px;
+    height: 16px;
+    background-color: #ffffff;
+    border-radius: 3px;
 }
 
-.task-list__item--done .task-list__text{
-    text-decoration: line-through;
+.task-list__wrapper {
+    display: flex;
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #dedfe2;
 }
 
 .task-list__text {
     width: 100%;
     margin: 0;
-    margin-right: 20px;
-    margin-left: 20px;
+    padding-right: 10px;
     overflow-wrap: anywhere;
-    /* hyphens: auto; */
-    /* word-break: break-word; */
+    hyphens: auto;
+    word-break: break-word;
 }
 
 .task-list__button {
+    position: relative;
     width: 30px;
     height: 30px;
     border: 2px solid #e5e5e5;
@@ -192,8 +166,8 @@ body {
 .task-list__button:after {
     content: "";
     position: absolute;
-    top: 24px;
-    right: 13px;
+    top: 12px;
+    right: 1px;
     width: 22px;
     height: 2px;
     background: #d22856;
@@ -207,5 +181,33 @@ body {
 .task-list__button:after {
     webkit-transform: rotate(-45deg);
     transform: rotate(-45deg);
+} 
+
+.task-list__item--done .task-list__checkbox {
+    background: #535252 !important;
 }
 
+.task-list__item--done .task-list__checkbox::before {
+    background-color: #111ee2;
+}
+
+.task-list__item--done .task-list__checkbox::after {
+    content: '';
+    position: absolute;
+    top: 18px;
+    left: 25px;
+    width: 5px;
+    height: 9px;
+    border-color: #ffffff;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.task-list__item--done .task-list__wrapper {
+    background: #535252 !important;
+}
+
+.task-list__item--done .task-list__text{
+    text-decoration: line-through;
+}

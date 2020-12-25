@@ -33,7 +33,7 @@ if (localStorage.getItem('arr')) {
   newElementArr = JSON.parse(localStorage.getItem('arr'));
 
   newElementArr.forEach( function(item, i) {
-    createNewElement(item.todo, i, item.color)
+    createNewElement(item.todo, i, item.color, item.checked)
   });
 }
 
@@ -54,56 +54,53 @@ function buttonClickHandler () {
   if (isValidInput(taskInput.value)) {
     alert('Заполните Поле!');
   } else {
-    createNewElement(taskInput.value, newElementArr.length, newTodo.color)
+    createNewElement(taskInput.value, newElementArr.length, newTodo.color, newTodo.checked)
     newElementArr.push(newTodo);
     localStorage.setItem('arr', JSON.stringify(newElementArr)) 
     taskInput.value = "";
   } 
- 
 }
 
 // создание нового элемента
-function createNewElement(text, id, color) {
-  const taskListElement = taskListTemplate.cloneNode(true);
-  const taskListItem = taskListElement.querySelector('.task-list__item');
-  const taskListText = taskListElement.querySelector('.task-list__text');
-  const taskListBtn = taskListElement.querySelector('.task-list__button');
-  taskListText.textContent = text
-  taskListBtn.id = `btn_${id}`
-  taskListItem.id = `item_${id}`
-  taskListItem.style.background = color
-
-
-  taskList.appendChild(taskListElement)
+function createNewElement(text, id, color, checked) {
+  const todoList = taskListTemplate.cloneNode(true);
+  const todoListItem = todoList.querySelector('.task-list__item');
+  const todoListCheckbox = todoList.querySelector('.task-list__checkbox');
+  const todoListWrapper = todoList.querySelector('.task-list__wrapper');
+  const todoListText = todoList.querySelector('.task-list__text');
+  // const todoListBtn = todoList.querySelector('.task-list__button');
+  todoListCheckbox.style.background = color
+  todoListWrapper.style.background = color
+  todoListText.textContent = text
+  // todoListBtn.id = `btn_${id}`
+  todoListItem.id = `item_${id}`
+  if (checked) {
+    todoListItem.classList.toggle('task-list__item--done')
+  }
+  // taskListItem.onClick = changeStyle(taskListItem,)
+  taskList.appendChild(todoList)
 }
-
 button.addEventListener('click', buttonClickHandler);
 
-// function taskListElemntClickHandler(evt) {
-//   let li = evt.target.closest('.task-list__item');
-//   let button = evt.target.tagName === "BUTTON";
-//   if (button) {
-//       let close = evt.target.parentNode;
-//       close.remove();
-//       localStorage.removeItem('arr');
-      
-//   } else if (li) {
-//       li.classList.toggle('task-list__item--done');
-//   } 
-// }
-
-// taskList.addEventListener('click', taskListElemntClickHandler);
 
 taskList.addEventListener('click', function(evt) {
-
-    let elementId = evt.target.id;
+    const elementId = evt.target.id;
   
     newElementArr.forEach(function(item, i) {
+      
       if (elementId === `btn_${i}`) {
-        item.checked = true
         taskList.querySelector(`[id='item_${i}']`).classList.add('visually-hidden')
-        localStorage.setItem('arr', JSON.stringify(newElementArr)) 
-       
+        newElementArr.splice(i, 1) 
+        localStorage.setItem('arr', JSON.stringify(newElementArr))
+        
       }
+      if (evt.target.closest(`[id='item_${i}']`)) {
+        item.checked = !item.checked
+        taskList.querySelector(`[id='item_${i}']`).classList.toggle('task-list__item--done')
+        localStorage.setItem('arr', JSON.stringify(newElementArr))
+      }
+      
     });
   });
+
+  

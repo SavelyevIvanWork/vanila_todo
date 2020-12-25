@@ -11,10 +11,11 @@
 </head>
 <body>
     <section class="task">
-        <h2 class="task__title">Список задач</h2>
+        <h2 class="task__title">Your todos</h2>
+        <ul class="task-list"></ul>
         <div class="task__window-module">
             <div class="task__input-wrapper">
-                <input class="task__input" type="text" placeholder="Добавить задачу..." autofocus>
+                <input class="task__input" type="text" placeholder="Add new item" autofocus>
                 <div class="task__control">
                     <div class="task__color-picker color-picker" id="colorPicker">
                         <span class="color-picker__item color-picker__item--blue" style="background-color: blue;"></span>
@@ -24,18 +25,19 @@
                         <span class="color-picker__item color-picker__item--light-green" style="background-color: #00d669;"></span>
                         <span class="color-picker__item color-picker__item--purple" style="background-color: #530cff;"></span>
                     </div>
-                    <button class="task__button" type="button">Добавить</button>
+                    <button class="task__button" type="button">Add</button>
                 </div>
             </div>
         </div>
-        <ul class="task-list"></ul>
         
     </section>
     <template id="task-list-templeate">
         <li class="task-list__item">
             <span class="task-list__checkbox"></span>
-            <p class="task-list__text"></p>
-            <button class="task-list__button"></button>
+            <div class="task-list__wrapper">
+                <p class="task-list__text">ynyunuj</p>
+                <!-- <button class="task-list__button"></button> -->
+            </div>
         </li>
     </template>
     <script src="index.js"></script>
