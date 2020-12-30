@@ -15,6 +15,13 @@ function randColor() {
   return color;
 }
 
+function color() {
+  let colorPicker = ['blue', '#ffa400', 'green', 'red', '#00d669', '#530cff'];
+  let color = Math.floor(Math.random() * colorPicker.length);
+}
+
+
+
 // отслеживаем клик колорпикеру и добавляем рамочки целевому элементу 
 colorPicker.addEventListener("click", function(evt) {
   colorPickerItem.forEach(item => {
